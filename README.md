@@ -1,7 +1,9 @@
 Task Management System
+
 Project Overview
 The Simple Task Management System is a web-based application designed to simplify task management. It allows users to add, view, update, and delete tasks seamlessly. This project is built to showcase my skills in Frontend and Backend development.
 Features
+
 •	Add Tasks: Create tasks with a name, description, and due date.
 •	View Tasks: Display a list of all tasks for easy tracking.
 •	Update Task Status: Mark tasks as completed or pending.
