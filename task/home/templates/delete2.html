@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Confirmation</title>
+    <link rel="stylesheet" href="{% static 'css/delete.css' %}"> 
+</head>
+<body>
+    <h1 id="n"> </h1>
+    
+  
+         <form id="deleteTaskForm" method="POST" onsubmit="event.preventDefault(); deletetask()">
+            {% csrf_token %}
+            <button type="submit">Delete Task</button>
+            <a href="/">Cancel</a>
+        </form>
+
+
+    <script>
+
+
+        fetch('http://127.0.0.1:8000/api/task/{{id}}')
+        .then(response => response.json())
+        .then(i => {
+     
+    
+           
+    
+            document.getElementById('n').innerHTML+=i.name
+
+   
+      
+          })
+          async function deletetask() {
+            const url = `http://127.0.0.1:8000/api/task/delete/{{id}}/`;
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken, 
+                    },
+                });
+        
+                if (response.ok) {
+                  
+                    alert(`Task {{id}} deleted successfully!`);
+                     window.location.href = 'http://127.0.0.1:8000/home2/'
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.detail || 'Failed to delete task'}`);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
